@@ -1,0 +1,13 @@
+.pergunta{
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-bottom: 4px solid #00000072;
+    border-image: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)) 1;
+    border-top: 4px solid #00000072;
+}
+h1{
+    color: rgb(130, 123, 114);
+}
