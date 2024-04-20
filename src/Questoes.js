@@ -7,11 +7,14 @@ import './Questoes.css'
 
 
 function Questoes(){
-    let numeroQuestao = 0;
-    let pontuacao = 0;
-    function contabilizarPontos(){
-        pontuacao = pontuacao + 10;
-    }
+    const [pontuacao, setPontuacao] = useState(0)
+    const respostas = [
+        "É o corvo de três olhos?",
+        "Quase um mestre",
+        "Eh ... bom",
+        "Volte e assista de novo",
+        "Você assistiu mesmo a série?",
+    ]
     const questao1 = {
         pergunta: "1. Qual é o lema da Casa Tully?",
         opcaoA: "Pela Honra e pela Glória",
@@ -27,13 +30,79 @@ function Questoes(){
         opcaoD: "23"
     }
     const questao3 = {
-        pergunta: "3. Qual nome daespada de Arya?",
+        pergunta: "3. Qual nome da espada de Arya?",
         opcaoA: "Sem rosto",
         opcaoB: "Agulha",
         opcaoC: "Lamento da viúva",
         opcaoD: "Alfinete"
     }
-    const perguntas = [questao1, questao2, questao3]
+    const questao4 = {
+        pergunta: "4. Qual a idade de Jon no primeiro livro?",
+        opcaoA: "12",
+        opcaoB: "14",
+        opcaoC: "16",
+        opcaoD: "18",
+        resposta: "14"
+    };
+    
+    const questao5 = {
+        pergunta: "5. Qual lema da casa Lannister?",
+        opcaoA: "Ouça-me rugir",
+        opcaoB: "Um leão não se preocupa com a opinião das ovelhas",
+        opcaoC: "O inverno está chegando",
+        opcaoD: "Nós não semeamos",
+        resposta: "Ouça-me rugir"
+    };
+    
+    const questao6 = {
+        pergunta: "6. Qual nome do lobo de Sansa Stark?",
+        opcaoA: "Nymeria",
+        opcaoB: "Cão Felpudo",
+        opcaoC: "Verão",
+        opcaoD: "Lady",
+        
+    };
+    
+    const questao7 = {
+        pergunta: "7. Qual nome do personagem que entregou uma rosa para Sansa no torneio da mão?",
+        opcaoA: "Sor Jaime Lannister",
+        opcaoB: "Sor Barristan Selmy",
+        opcaoC: "Sor Loras Tyrell",
+        opcaoD: "Sor Gregor Clegane",
+        
+    };
+    
+    const questao8 = {
+        pergunta: "8. Onde Arya escondeu a Agulha?",
+        opcaoA: "Dentro de um tronco de árvore",
+        opcaoB: "Em um rio",
+        opcaoC: "No telhado de um prédio",
+        opcaoD: "Entre pedras",
+        
+    };
+    
+    const questao9 = {
+        pergunta: "9. Qual nome do dragão verde de Daenerys?",
+        opcaoA: "Drogon",
+        opcaoB: "Rhaegal",
+        opcaoC: "Viserion",
+        opcaoD: "Balerion",
+        
+    };
+    
+    const questao10 = {
+        pergunta: "10. Qual o nome do Corvo de Sangue?",
+        opcaoA: "Bran Stark",
+        opcaoB: "Rickon Stark",
+        opcaoC: "Eddard Stark",
+        opcaoD: "Brynden Rivers",
+        
+    };
+    const perguntas = [questao1, questao2, questao3, questao4, questao5, questao6, questao7, questao8, questao9, questao10]
+    const acertosA = [1, 4]
+    const acertosB = [2, 3, 8]
+    const acertosC = [6]
+    const acertosD = [0, 5, 7, 9]
 
     const [index, setIndex] = useState(1)
     const [pergunta, trocarPergunta] = useState(perguntas[0].pergunta);
@@ -42,10 +111,31 @@ function Questoes(){
     const [opcaoCC, trocarOpcaoC] = useState(perguntas[0].opcaoC)
     const [opcaoDD, trocarOpcaoD] = useState(perguntas[0].opcaoD)
     
-    const selecionandoOpcao = () =>{
-        
-        if(index >= perguntas.length){
-            setIndex(0)
+    const selecionandoOpcaoA = () =>{
+        for(const elemento of acertosA){
+            if(elemento == index - 1)
+                setPontuacao(pontuacao+10)
+        }
+        nextOptions()
+    }
+    const selecionandoOpcaoB = () =>{
+        for(const elemento of acertosB){
+            if(elemento == index - 1)
+                setPontuacao(pontuacao+10)
+        }
+        nextOptions()
+    }
+    const selecionandoOpcaoC = () =>{
+        for(const elemento of acertosC){
+            if(elemento == index - 1)
+                setPontuacao(pontuacao+10)
+        }
+        nextOptions()
+    }
+    const selecionandoOpcaoD = () =>{
+        for(const elemento of acertosD){
+            if(elemento == index - 1)
+                setPontuacao(pontuacao+10)
         }
         nextOptions()
     }
@@ -57,26 +147,33 @@ function Questoes(){
         trocarOpcaoD(perguntas[index].opcaoD)
         setIndex(prevIndex => (prevIndex + 1) % perguntas.length);
     }
+    const [modalAberta, setModalAberta] = useState(false);
+
+    const abrirModal = () => {
+        setModalAberta(true);
+      }
+      const fecharModal = () => {
+        setModalAberta(false);
+      }
     return(<>
     <h3>{pergunta}</h3>
     <div className="alternativa">
-        <img onClick={selecionandoOpcao} src={letraA} className="icone" />
+        <img onClick={selecionandoOpcaoA} src={letraA} className="icone" />
         <h5>{opcaoAA}</h5>
     </div>
     <div className="alternativa">
-        <img onClick={selecionandoOpcao} src={letraB} className="icone" />
+        <img onClick={selecionandoOpcaoB} src={letraB} className="icone" />
         <h5>{opcaoBB}</h5>
     </div>
     <div className="alternativa">
-        <img onClick={selecionandoOpcao} src={letraC} className="icone" />
+        <img onClick={selecionandoOpcaoC} src={letraC} className="icone" />
         <h5>{opcaoCC}</h5>
     </div>
     <div className="alternativa">
-        <img onClick={selecionandoOpcao} src={letraD} className="icone" />
+        <img onClick={selecionandoOpcaoD} src={letraD} className="icone" />
         <h5>{opcaoDD}</h5>
     </div>
-
-
+    <h1>{pontuacao}</h1>
     </>
     );
 }
